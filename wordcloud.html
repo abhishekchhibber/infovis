@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <div id="words"></div>
+
+
+
+</body>
+
+<script>
+
+	function shuffle(a) {
+	    var j, x, i;
+	    for (i = a.length; i; i -= 1) {
+	        j = Math.floor(Math.random() * i);
+	        x = a[i - 1];
+	        a[i - 1] = a[j];
+	        a[j] = x;
+	    }
+	}
+
+  function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+  var words = [{"word": "data", "count": 34},
+               {"word": "information", "count":29},
+               {"word": "visualization", "count":28} ,
+               {"word": "abstract", "count":11} ,
+               {"word": "computer", "count":10} ,
+               {"word": "visual", "count":9} ,
+               {"word": "space", "count":8} ,
+               {"word": "representations", "count":6} ,
+               {"word": "graphical", "count":6} ,
+               {"word": "records", "count":5},
+               {"count":5, "word" : "cognition"},
+               {"count": 4, "word" : "techniques"},
+               {"count": 4, "word" : "interactive"},
+               {"count": 4, "word" : "interaction"},
+               {"count": 4, "word" : "human"},
+               {"count": 4, "word" : "graphics"},
+               {"count": 4, "word" : "criteria"},
+               {"count": 4, "word" : "amplify"},
+               {"count": 3, "word" : "visualizations"},
+               {"count": 3, "word" : "user"},
+               {"count": 3, "word" : "unstructured"},
+               {"count": 3, "word" : "screen"},
+               {"count": 3, "word" : "scientific"},
+               {"count": 3, "word" : "science"},
+               {"count": 3, "word" : "items"},
+               {"count": 3, "word" : "image"},
+               {"count": 3, "word" : "fish"},
+               {"count": 3, "word" : "examples"},
+               {"count": 3, "word" : "coordinates"},
+               {"count": 3, "word" : "charts"},
+               {"count": 3, "word" : "attributes"},
+               {"count": 2, "word" : "world"},
+               {"count": 2, "word" : "work"},
+               {"count": 2, "word" : "way"},
+               {"count": 2, "word" : "variables"},
+               {"count": 2, "word" : "users"},
+               {"count": 2, "word" : "used"},
+               {"count": 2, "word" : "understanding"},
+               {"count": 2, "word" : "temporal"},
+               {"count": 2, "word" : "structured"},
+               {"count": 2, "word" : "structure"},
+               {"count": 2, "word" : "spatial"},
+               {"count": 2, "word" : "show"},
+               {"count": 2, "word" : "sensory"},
+               {"count": 2, "word" : "results"},
+               {"count": 2, "word" : "relations"},
+               {"count": 2, "word" : "properties"},
+               {"count": 2, "word" : "patterns"},
+               {"count": 2, "word" : "pages"},
+               {"count": 2, "word" : "nonspatial"},
+               {"count": 2, "word" : "new"},
+               {"count": 2, "word" : "modify"},
+               {"count": 2, "word" : "models"},
+               {"count": 2, "word" : "mapped"},
+               {"count": 2, "word" : "map"},
+               {"count": 2, "word" : "interactivity"},
+               {"count": 2, "word" : "individual"},
+               {"count": 2, "word" : "geographic"},
+               {"count": 2, "word" : "forms"},
+               {"count": 2, "word" : "form"},
+               {"count": 2, "word" : "external"},
+               {"count": 2, "word" : "display"},
+               {"count": 2, "word" : "dimensions"},
+               {"count": 2, "word" : "dimensional"},
+               {"count": 2, "word" : "describing"},
+               {"count": 2, "word" : "deals"},
+               {"count": 2, "word" : "datasets"},
+               {"count": 2, "word" : "create"},
+               {"count": 2, "word" : "contrast"},
+               {"count": 2, "word" : "color"},
+               {"count": 2, "word" : "cognitive"},
+               {"count": 2, "word" : "based"},
+               {"count": 2, "word" : "animation"},
+               {"count": 2, "word" : "advantage"}
+              ];
+
+  d3.select("div#words")
+    .selectAll("span")
+    .data(words)
+    .enter()
+    .append("span")
+    .html(function(d){return "<b style='color:"+getRandomColor()+";font-size:"+d.count/3.0+"em'> "+d.word+" </b>";});
+</script>
+</html>
