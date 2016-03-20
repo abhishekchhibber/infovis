@@ -7,7 +7,8 @@
   <title>Wordle</title>
 </head>
 <body>
-  <div id="wordle"></div>
+  <div id="wordle">
+  </div>
 </body>
 <script>
 
@@ -20,24 +21,29 @@
     {"question": "The Wordle confused me", "positive": 5, "neutral": 9, "negative": 86}
   ];
 
-
+  var height = 50;
   d3.select("div#wordle")
     .selectAll("svg")
     .data(poll)
     .enter()
     .append("p")
     .append("svg")
-    .attr("width",2000)
+    .attr("width",screen.availWidth)
+    .attr("height",height)
     .html(function(d){
       var factor = 5;
       var positive = d.positive*factor;
       var neutral = d.neutral*factor;
       var negative = d.negative*factor;
-      var initialX = 300;
-      return "<text x='0' y='25'>"+d.question+"</text>" +
-             '<rect x="'+initialX+'" width="'+positive+'" height="50" stroke="white" style="fill:rgb(0,255,0);stroke-width:3" />' +
-             '<rect x="'+(initialX+positive)+'"width="'+neutral+'" height="50" stroke="white" style="fill:rgb(127,127,127);stroke-width:3" />' +
-             '<rect x="'+(initialX+positive+neutral)+'"width="'+negative+'" height="50" stroke="white" style="fill:rgb(255,0,0);stroke-width:3" />'
+      var initialX = 400;
+      return "<text x='25' y='25' style='font-family: Arial;fill: #6666ff;stroke: #000000;font-size:20px'>"+d.question+
+              "</text>" +
+             '<rect x="'+initialX+'" width="'+positive+'" height="'+(height/2)+'" y="'+(height/2+1)+'" stroke="white" style="fill:rgb(70,255,70);stroke-width:0" />' +
+             '<text x="'+(initialX+positive/2-2)+'" y="'+(height/2-1)+'">' +d.positive+'%</text>'+
+             '<rect x="'+(initialX+positive)+'"width="'+neutral+'" height="'+(height/2)+'" y="'+(height/2+1)+'" stroke="white" style="fill:rgb(200,200,200);stroke-width:0" />' +
+             '<text x="'+(initialX+positive+neutral/2-2)+'" y="'+(height/2-1)+'">' +d.neutral+'%</text>'+
+             '<rect x="'+(initialX+positive+neutral)+'"width="'+negative+'" height="'+(height/2)+'" y="'+(height/2+1)+'" stroke="white" style="fill:rgb(255,70,70);stroke-width:0" />'+
+             '<text x="'+(100*factor + initialX - negative/2 - 2)+'" y="'+(height/2-1)+'">'+d.negative+'%</text>'
 
       ;});
 </script>
