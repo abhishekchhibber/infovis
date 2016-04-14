@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>IMDb Reviews</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Load c3.css -->
+<link href="js/c3-0.4.10/c3.css" rel="stylesheet" type="text/css">
+
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+  <script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <!-- Load d3.js and c3.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <script src="js/c3-0.4.10/c3.min.js"></script>
+</head>
+<body>
+  <div class="col-md-12">
+    <h1> Grupos de Edades </h1>
+    <div id="chart">
+    </div>
+  </div>
+</body>
+<script>
+
+d3.json("censo-api/src/main/resources/ages.json", function (data) {
+  var chart = c3.generate({
+      data: {
+          // iris data from R
+          columns: [
+              ['0-14', 7336214],
+              ['15-64', 19118366],
+              ['65 o mas',3188149]
+          ],
+          type : 'pie',
+          onclick: function (d, i) { console.log("onclick", d, i); },
+          onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+          onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+      }
+  });
+});
+
+</script>
+</html>
