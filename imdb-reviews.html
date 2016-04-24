@@ -1,38 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>IMDb Reviews</title>
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <!-- Load c3.css -->
-<link href="js/c3-0.4.10/c3.css" rel="stylesheet" type="text/css">
+    <title>My IMDb Reviews</title>
 
+    <meta charset="UTF-8">
 
-  <!-- Scripts -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
-  <script src="http://jquery-csv.googlecode.com/git/src/jquery.csv.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  <!-- Load d3.js and c3.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-  <script src="js/c3-0.4.10/c3.min.js"></script>
-  <script type="text/javascript" src="js/tmdb.js"></script>
-  <script type="text/javascript" src="data/convertcsv.js"></script>
-  <script type="text/javascript" src="js/csv.js"></script>
-  <script type="text/javascript" src="js/chart-gen.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dc.css"/>
+
+    <style>
+        #monthly-volume-chart g.y {
+            display: none;
+        }
+        #logo {
+            margin-right: 2em;
+            margin-top: 2em;
+        }
+    </style>
 </head>
 <body>
-  <div class="col-md-12">
-    <h1> IMDb Movie Reviews </h1>
-    <div id="chart">
-    </div>
-  </div>
-</body>
-<script>
-  var data = generateMovieData(movieDataCSV);
-  generateMovieChartWithColumns(data.genres, data.values, data.rawData);
 
-</script>
+<div class="container">
+
+<h2>IMDb Reviews</h2>
+
+<div class="row">
+    <div style="text-align:center" id="my-rating-chart">
+        <strong>Movie Ratings Percentage</strong>
+        <a class="reset" href="javascript:myRatingChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div>
+    <div id="review-count-chart">
+        <strong>Number of Movies Rated each year</strong>
+        <a class="reset" href="javascript:yearCountChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div style="text-align:center" id="director-count-chart">
+        <strong>Top 10 Most Watched Directors</strong>
+        <a class="reset" href="javascript:directorCountChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div>
+    <div style="text-align:center" id="genre-count-chart">
+        <strong>Number of Movies by Genre</strong>
+        <a class="reset" href="javascript:genreChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div>
+        <div class="dc-data-count">
+            <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+        </div>
+    </div>
+    <table class="table table-hover dc-data-table">
+    </table>
+</div>
+
+
+<div class="clearfix"></div>
+
+</div>
+
+</div>
+
+<script type="text/javascript" src="js/d3.js"></script>
+<script type="text/javascript" src="js/crossfilter.js"></script>
+<script type="text/javascript" src="js/dc.js"></script>
+
+<script type="text/javascript" src="js/imdb-reviews.js"></script>
+
+
+</body>
 </html>

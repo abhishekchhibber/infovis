@@ -28,6 +28,18 @@ function generateDefaultChart(){
 	});
 }
 
+function generateChartFromCsv(){
+    var chart;
+    chart = c3.generate({
+        data: {
+            url: 'data/ratings.csv',
+            x: 'Year',
+            y: 'IMDb Rating',
+            type: 'scatter'
+        }
+    });
+}
+
 function generateMovieChartWithColumns(genres, valuesData, rawData){
 	var imgCache = new Array();
 	var chart = c3.generate({
@@ -64,9 +76,9 @@ function generateMovieChartWithColumns(genres, valuesData, rawData){
 	        	var movie = rawData[axisData.x][0];
 	            return '<div class="col-xs-6 col-md-12">' +
 				           '<a href="#" class="thumbnail">' +
-		               			'<p>' + movie.Title + '</p>' + 
-		               			'<p>My Rating: ' + movie['You rated'] + '</p>' + 
-		               			'<p>IMDb Rating: ' + movie['IMDb Rating'] + '</p>' + 
+		               			'<p>' + movie.Title + '</p>' +
+		               			'<p>My Rating: ' + movie['You rated'] + '</p>' +
+		               			'<p>IMDb Rating: ' + movie['IMDb Rating'] + '</p>' +
 						    '</a>'+
 	                  	'</div>';
 	        }
