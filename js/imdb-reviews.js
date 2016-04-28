@@ -1,7 +1,7 @@
 
 var yearCountChart = dc.barChart('#review-count-chart');
 var directorCountChart = dc.rowChart('#director-count-chart');
-var myRatingChart = dc.pieChart('#my-rating-chart');
+var myRatingChart = dc.rowChart('#my-rating-chart');
 var genreChart = dc.rowChart('#genre-count-chart');
 var movieCount = dc.dataCount('.dc-data-count');
 var movieTable = dc.dataTable('.dc-data-table');
@@ -115,23 +115,17 @@ d3.csv('ratings.csv', function(data){
     yearCountChart.yAxis().ticks(10);
 
     myRatingChart
-        .width(totalWidth/4)
+        .width(totalWidth/3.3)
         .height(200)
-        .radius(80)
+        .margins({top: 20, left: 10, right: 10, bottom: 20})
         .dimension(ratingDimension)
         .ordinalColors(d3.scale.category10().range())
         .renderLabel(true)
+        .ordering(function(d) {
+            return -d.key;
+        })
         .group(ratingGroup)
-        .label(function (d) {
-            if (myRatingChart.hasFilter() && !myRatingChart.hasFilter(d.key)) {
-                return d.key + '(0%)';
-            }
-            var label = d.key;
-            if (all.value()) {
-                label += ' (' + Math.floor(d.value / all.value() * 100) + '%)';
-            }
-            return label;
-        });
+        .elasticX(true);
 
     directorCountChart
         .width(totalWidth/2.1)
