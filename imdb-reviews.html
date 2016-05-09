@@ -23,46 +23,55 @@
 <div class="container">
 
 <h2>IMDb Reviews</h2>
-
 <div class="row">
-    <div style="text-align:center" id="my-rating-chart">
-        <strong>Movie Ratings Amount</strong>
-        <a class="reset" href="javascript:myRatingChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
-        <div class="clearfix"></div>
-    </div>
-    <div id="review-count-chart">
-        <strong>Number of Movies Rated each year</strong>
-        <a class="reset" href="javascript:yearCountChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
-        <div class="clearfix"></div>
-    </div>
+        <span class="label label-info">Upload your Ratings CSV:</span>
+        <input id="csvFile" type="file" accept="text/csv">
+    <button class="btn btn-info btn-lg pull-right" type="button" onclick="loadCsv('ratings.csv')">Try an Example</button>
 </div>
 
-<div class="row">
-    <div style="text-align:center" id="director-count-chart">
-        <strong>Top 10 Most Watched Directors</strong>
-        <a class="reset" href="javascript:directorCountChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+<div id="content" style="display:none">
+    <div class="row">
+        <div style="text-align:center" id="my-rating-chart">
+            <strong>Movie Ratings Amount</strong>
+            <a class="reset" href="javascript:myRatingChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
-        <div class="clearfix"></div>
-    </div>
-    <div style="text-align:center" id="genre-count-chart">
-        <strong>Number of Movies by Genre</strong>
-        <a class="reset" href="javascript:genreChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+            <div class="clearfix"></div>
+        </div>
+        <div id="review-count-chart">
+            <strong>Number of Movies Rated each year</strong>
+            <a class="reset" href="javascript:yearCountChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
-        <div class="clearfix"></div>
-    </div>
-</div>
-
-<div class="row">
-    <div>
-        <div class="dc-data-count">
-            <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
-                href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+            <div class="clearfix"></div>
         </div>
     </div>
-    <table class="table table-hover dc-data-table">
-    </table>
+
+    <div class="row">
+        <div style="text-align:center" id="director-count-chart">
+            <strong>Top 10 Most Watched Directors</strong>
+            <a class="reset" href="javascript:directorCountChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+            <div class="clearfix"></div>
+        </div>
+        <div style="text-align:center" id="genre-count-chart">
+            <strong>Number of Movies by Genre</strong>
+            <a class="reset" href="javascript:genreChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div>
+            <div class="dc-data-count">
+                <span class="filter-count"></span> selected out of <span class="total-count"></span> records | <a
+                    href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+            </div>
+        </div>
+        <table class="table table-hover dc-data-table">
+        </table>
+    </div>
 </div>
 
 
@@ -72,6 +81,7 @@
 
 </div>
 
+<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
 <script type="text/javascript" src="js/d3.js"></script>
 <script type="text/javascript" src="js/crossfilter.js"></script>
 <script type="text/javascript" src="js/dc.js"></script>
