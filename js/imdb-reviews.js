@@ -32,10 +32,10 @@ function loadCsv(path) {
             d.release = dateFormat.parse(d['Release Date (month/day/year)']);
             d.genres = d['Genres'].split(", ");
             d.directors = d['Directors'].split(", ");
-            if (d.year < minYear) {
-                minYear = d.year;
-            }
             if (d['Title type'] == 'Feature Film') {
+                if (d.year < minYear) {
+                    minYear = d.year;
+                }
                 movies.push(d);
             }
         });
@@ -110,7 +110,7 @@ function loadCsv(path) {
         yearCountChart
             .dimension(yearlyDimension)
             .group(yearGroup)
-            .width(totalWidth * 2 / 3)
+            .width(totalWidth / 2.1)
             .height(200)
             .x(d3.scale.linear().domain([minYear, maxYear]))
             .renderHorizontalGridLines(true)
@@ -118,7 +118,8 @@ function loadCsv(path) {
                 var filter = filters[0], s = '';
                 s += numberFormat(filter[0]) + ' -> ' + numberFormat(filter[1]);
                 return s;
-            });
+            })
+            .xAxis().tickFormat(d3.format("d"));
 
         yearCountChart.xAxis().tickFormat(
             function (v) {
@@ -127,7 +128,7 @@ function loadCsv(path) {
         yearCountChart.yAxis().ticks(10);
 
         myRatingChart
-            .width(totalWidth / 3.3)
+            .width(totalWidth / 2.1)
             .height(200)
             .margins({top: 20, left: 10, right: 10, bottom: 20})
             .dimension(ratingDimension)
@@ -137,7 +138,8 @@ function loadCsv(path) {
                 return -d.key;
             })
             .group(ratingGroup)
-            .elasticX(true);
+            .elasticX(true)
+            .xAxis().tickFormat(d3.format("d"));
 
         directorCountChart
             .width(totalWidth / 2.1)
@@ -153,7 +155,7 @@ function loadCsv(path) {
                 return d.value;
             })
             .elasticX(true)
-            .xAxis().ticks(10);
+            .xAxis().ticks(10).tickFormat(d3.format("d"));
 
         genreChart
             .width(totalWidth / 2.1)
@@ -169,7 +171,8 @@ function loadCsv(path) {
                 return -d.value;
             })
             .elasticX(true)
-            .xAxis().ticks(10);
+            .xAxis().ticks(10)
+            .tickFormat(d3.format("d"));
 
         movieCount /* dc.dataCount('.dc-data-count', 'chartGroup'); */
             .dimension(ratings)
