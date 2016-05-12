@@ -25,14 +25,17 @@ function loadCsv(path) {
         var minYear = maxYear;
         var movies = [];
         data.map(function (d) {
-            d.rating = +d['You rated'];
-            d.year = +d['Year'];
-            d.imdbRating = +d['IMDb Rating'];
-            d.votes = +d['Num. Votes'];
-            d.release = dateFormat.parse(d['Release Date (month/day/year)']);
-            d.genres = d['Genres'].split(", ");
-            d.directors = d['Directors'].split(", ");
             if (d['Title type'] == 'Feature Film') {
+                d.rating = +d['You rated'];
+                d.year = +d['Year'];
+                d.imdbRating = +d['IMDb Rating'];
+                d.votes = +d['Num. Votes'];
+                d.release = dateFormat.parse(d['Release Date (month/day/year)']);
+                d.genres = d['Genres'].split(", ");
+                d.genres = d.genres.map(function(genre){
+                    return titleCase(genre);
+                });
+                d.directors = d['Directors'].split(", ");
                 if (d.year < minYear) {
                     minYear = d.year;
                 }
@@ -170,6 +173,10 @@ function loadCsv(path) {
             .ordering(function (d) {
                 return -d.value;
             })
+            .filterHandler(function(dimension, filter){
+                dimension.filter(function(d) {return genreChart.filter() != null ? d.indexOf(genreChart.filter()) >= 0 : true;});
+                return filter;
+            })
             .elasticX(true)
             .xAxis().ticks(10)
             .tickFormat(d3.format("d"));
@@ -199,7 +206,20 @@ function loadCsv(path) {
                 },
                 'year',
                 'Directors',
-                'genres',
+                {
+                    // Specify a custom format for column 'Change' by using a label with a function.
+                    label: 'Genres',
+                    format: function (d) {
+                        var genreString = d.genres[0];
+                        d.genres.forEach(function(val, i){
+                            if (i > 0) {
+                                genreString += ", " + val;
+                            }
+                        });
+                        return genreString;
+                    }
+                },
+                //'genres',
                 'rating'
             ])
             .sortBy(function (d) {
@@ -219,7 +239,6 @@ function loadCsv(path) {
 function readCsvFromFile(evt) {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         var f = evt.target.files[0];
-        console.log(f);
         var reader = new FileReader();
         reader.onload = (function(theFile) {
 
@@ -231,6 +250,16 @@ function readCsvFromFile(evt) {
     } else {
         alert('The File APIs are not fully supported in this browser.');
     }
+}
+
+function titleCase(str) {
+    var newstr = str.split(" ");
+    for(i=0;i<newstr.length;i++){
+        var copy = newstr[i].substring(1).toLowerCase();
+        newstr[i] = newstr[i][0].toUpperCase() + copy;
+    }
+    newstr = newstr.join(" ");
+    return newstr;
 }
 
 $('#csvFile').on('change', readCsvFromFile);
