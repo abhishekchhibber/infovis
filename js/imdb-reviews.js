@@ -115,7 +115,7 @@ function loadCsv(path) {
             .group(yearGroup)
             .width(totalWidth / 2.1)
             .height(200)
-            .x(d3.scale.linear().domain([minYear, maxYear]))
+            .x(d3.scale.linear().domain([minYear, maxYear+1]))
             .renderHorizontalGridLines(true)
             .filterPrinter(function (filters) {
                 var filter = filters[0], s = '';
